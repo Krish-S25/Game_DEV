@@ -1,47 +1,88 @@
-# AngBirbsGame
+# 🐦 AngBirbsGame - Box2D & LibGDX Angry Birds Clone
 
-An Angry Birds clone built in Java using the LibGDX framework and Box2D physics. It includes custom levels, dynamic slingshot mechanics, projectile flight path tracing, a game-over screen, and level selectors with customized asset layouts.
+AngBirbsGame is a fully-featured, physics-based Angry Birds clone built in **Java** utilizing the powerful **LibGDX** game framework and **Box2D** physics engine. The game includes customized levels, elastic slingshot mechanics, projectile flight path tracing, a modular screen routing system, and custom physics interactions.
 
-## Requirements
+---
 
-* **Java 17** or higher
+## 🎮 Key Features
 
-## How to Run
+* **Box2D Physics Integration**: Fully simulated physical world featuring realistic gravity, friction, mass density, and elastic restitution for structures, projectiles, and pigs.
+* **Elastic Slingshot Mechanism**: Drag-and-release slingshot system featuring mouse joint constraints and physical drag boundaries.
+* **Dynamic Projectile Flight Path Tracing**: Renders color-coded, fade-away trail particles matching the projectile's type (Red trail for Red Bird, Black trail for Bomb Bird).
+* **Distinct Bird Types**:
+  * **Red Bird**: The classic high-velocity projectile.
+  * **Bomb Bird**: Larger, heavier, and features a custom visual scale and dense mass profile for breaking through reinforced barriers.
+* **Multiple Challenging Levels**:
+  * **Level 1 (The Basics)**: Introduce slingshot dynamics against a single pig on a standard box.
+  * **Level 2 (The Tower)**: Break through a 3-high vertical box tower with multiple targets.
+  * **Level 3 (The Fort)**: Penetrate a highly fortified structure protected by a sloped ramp constructed out of custom rotated triangle blocks.
+* **Polished Screen Routing & UI**:
+  * **Main Menu**: Stylized entry screen with dynamic button scaling and visual theme.
+  * **Level Selection Screen**: Grid system displaying unlocked/locked levels using custom atlas skins.
+  * **Pause Menu**: In-game overlays providing instant "Resume/Redo" and exit triggers.
+  * **Game Over Screen**: Win/loss detection triggers tailored retry states.
 
-To run the game locally, open a terminal in the project root folder and execute:
+---
 
+## 📂 Project Architecture
+
+The project follows the standard LibGDX multi-module layout:
+
+```text
+├── assets/                  # Centralized game assets (textures, level config, UI skins)
+├── core/                    # Core Java source code containing all screens and physics
+│   └── src/main/java/io/github/serios/
+│       ├── Main.java             # Main Game entry point & Asset Manager setup
+│       ├── BaseLevelScreen.java  # Core gameplay loop, Box2D world, & Slingshot input
+│       ├── LevelScreen.java      # Level 1 configuration
+│       ├── Level2Screen.java     # Level 2 configuration
+│       ├── Level3Screen.java     # Level 3 configuration
+│       ├── GameScreen.java       # Level Selection Screen (unlocked grid)
+│       ├── MenuScreen.java       # Main Menu Screen
+│       ├── PauseScreen.java      # In-game Pause overlay
+│       └── GameOver.java         # Post-match Win/Loss summary screen
+└── lwjgl3/                  # Desktop launcher using the LWJGL 3 backend
+```
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+Ensure you have **Java 17** or higher installed and configured in your environment variable paths.
+
+### Running Locally
+
+To run the game, open a terminal in the root folder (`AngBird-main`) and execute:
+
+**On Windows (Command Prompt / PowerShell):**
 ```bash
+./gradlew lwjgl3:run
+```
+
+**On macOS / Linux:**
+```bash
+chmod +x gradlew
 ./gradlew lwjgl3:run
 ```
 
 ---
 
-A [libGDX](https://libgdx.com/) project generated with [gdx-liftoff](https://github.com/libgdx/gdx-liftoff).
+## 🛠️ Gradle Build Tasks
 
-## Platforms
+This project is built using Gradle wrapper (`gradlew` / `gradlew.bat`). Below are the primary tasks:
 
-- `core`: Main module with the application logic shared by all platforms.
-- `lwjgl3`: Primary desktop platform using LWJGL3; was called 'desktop' in older docs.
+* **Run Desktop App**: `./gradlew lwjgl3:run`
+* **Clean Build Directories**: `./gradlew clean`
+* **Build Project**: `./gradlew build`
+* **Generate Runnable JAR**: `./gradlew lwjgl3:jar` (Output will be located in `lwjgl3/build/libs/`)
+* **IntelliJ project generation**: `./gradlew idea`
 
-## Gradle
+---
 
-This project uses [Gradle](https://gradle.org/) to manage dependencies.
-The Gradle wrapper was included, so you can run Gradle tasks using `gradlew.bat` or `./gradlew` commands.
-Useful Gradle tasks and flags:
+## 🎮 Gameplay Controls
 
-- `--continue`: when using this flag, errors will not stop the tasks from running.
-- `--daemon`: thanks to this flag, Gradle daemon will be used to run chosen tasks.
-- `--offline`: when using this flag, cached dependency archives will be used.
-- `--refresh-dependencies`: this flag forces validation of all dependencies. Useful for snapshot versions.
-- `build`: builds sources and archives of every project.
-- `cleanEclipse`: removes Eclipse project data.
-- `cleanIdea`: removes IntelliJ project data.
-- `clean`: removes `build` folders, which store compiled classes and built archives.
-- `eclipse`: generates Eclipse project data.
-- `idea`: generates IntelliJ project data.
-- `lwjgl3:jar`: builds application's runnable jar, which can be found at `lwjgl3/build/libs`.
-- `lwjgl3:run`: starts the application.
-- `test`: runs unit tests (if any).
-
-Note that most tasks that are not specific to a single project can be run with `name:` prefix, where the `name` should be replaced with the ID of a specific project.
-For example, `core:clean` removes `build` folder only from the `core` project.
+* **Left Click & Drag (Mouse/Touch)**: Pull the bird back on the slingshot.
+* **Release Left Click**: Launch the projectile.
+* **Escape (ESC) or Pause Button**: Access Pause Menu.
